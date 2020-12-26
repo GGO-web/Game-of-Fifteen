@@ -5,22 +5,56 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Game of Fifteen Practic</title>
    <link rel="stylesheet" href="css/style.min.css">
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-   <main class="game">
-      <ul id="game-field" class="game-field" data-countCells="9">
-         <!-- <li class="game-field__cell" data-index="1">1</li>
-         <li class="game-field__cell" data-index="2">2</li>
-         <li class="game-field__cell" data-index="3">3</li>
-         <li class="game-field__cell" data-index="4">4</li>
-         <li class="game-field__cell" data-index="5">5</li>
-         <li class="game-field__cell" data-index="6">6</li>
-         <li class="game-field__cell" data-index="7">7</li>
-         <li class="game-field__cell" data-index="8">8</li>
-         <li class="game-field__cell" data-index="9"></li> -->
-      </ul>
-   </main>
 
+   <div class="game-field-size-wrapper">
+      <div class="game-field-size">
+         <h2 class="game-field-size__title">
+            Select field size
+         </h2>
+         <ul class="game-field-size__list">
+            <li class="game-field-size__list-item">
+               <button class="game-field-size__button" data-size="9">3 x 3</button>
+            </li>
+            <li class="game-field-size__list-item">
+               <button class="game-field-size__button" data-size="16">4 x 4</button>
+            </li>
+            <li class="game-field-size__list-item">
+               <button class="game-field-size__button" data-size="25">5 x 5</button>
+            </li>
+         </ul>
+      </div>
+   </div>
+
+   <div class="game-wrapper hidden">
+      <h1 class="game-title">Game of Fifteen</h1>
+      <nav class="game-navigation">
+         <button class="game-navigation__button game-navigation__button-restart" id="game-restart">restart</button>
+         <button class="game-navigation__button game-navigation__button-menu" id="game-menu">menu</button>
+      </nav>
+      <main class="game">
+         <ul id="game-field" class="game-field" data-countCells="9">
+            <!-- <li class="game-field__cell" data-index="1">1</li>
+            <li class="game-field__cell" data-index="2">2</li>
+            <li class="game-field__cell" data-index="3">3</li>
+            <li class="game-field__cell" data-index="4">4</li>
+            <li class="game-field__cell" data-index="5">5</li>
+            <li class="game-field__cell" data-index="6">6</li>
+            <li class="game-field__cell" data-index="7">7</li>
+            <li class="game-field__cell" data-index="8">8</li>
+            <li class="game-field__cell" data-index="9"></li> -->
+         </ul>
+         <div class="game-info">
+            <h3 class="game-info__text">
+               Count moves: <span id="count-moves">-</span>
+            </h3>
+         </div>
+      </main>
+   </div>
+   
    <script src="js/main.min.js" defer></script>
 </body>
 </html>

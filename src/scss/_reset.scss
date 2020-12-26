@@ -358,14 +358,6 @@ template {
   padding: 0;
 }
 
-:focus,:active {
-  outline: none;
-}
-
-a:focus, a:active {
-  outline: none;
-}
-
 nav, footer, header, aside {
   display: block;
 }
@@ -397,7 +389,6 @@ button {
   display: inline-block;
   background: none;
   border: none;
-  outline: none;
 }
 
 button::-moz-focus-inner {
