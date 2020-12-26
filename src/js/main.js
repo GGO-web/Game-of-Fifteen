@@ -12,6 +12,10 @@ const countMoves = document.getElementById("count-moves");
 const gameRestart = document.getElementById("game-restart");
 // отримуємо кнопку повернення до меню вибору поля
 const gameMenu = document.getElementById("game-menu");
+// отримуємо вікно перемоги
+const gameWinModalWrapper = document.querySelector(".game-win-modal-wrapper");
+// отримуємо кнопку закриття модально вікна перемоги
+const gameWinCloseButton = document.querySelector(".game-win-modal__close-button");
 
 // кількість клітинок в ігровому полі
 let countCells = gameField.dataset.countcells;
@@ -181,6 +185,36 @@ const gameShuffle = () => {
    }
 }
 
+// відкриття вікна перемоги
+const openGameWinModal = () => {
+   gameWinModalWrapper.classList.remove("hidden");
+}
+
+// закриття вікна перемоги
+const closeGameWinModal = () => {
+   gameWinModalWrapper.classList.add("hidden");
+};
+
+const updateGameWinInfo = () => {
+   const gameWinScore = document.querySelector(".game-win-modal__score");
+   gameWinScore.innerHTML = `${moves}`;
+}
+
+// перевірка на виграш
+const isGameWin = () => {
+   const gameFieldCells = gameField.querySelectorAll('.game-field__cell');
+   let currentIndex = 1;
+   for (let i = 0; i < countCells - 1; ++i) {
+      const index = +gameFieldCells[i].innerHTML;
+      //console.log(index, i + 1);
+      if (index != i + 1) {
+         return false;
+      }
+   }
+
+   return true;
+}
+
 // відслідковуємо клік по ігровому полю
 gameField.addEventListener('click', function(event) {
    // клітка, по якій відбувся клік
@@ -201,6 +235,12 @@ gameField.addEventListener('click', function(event) {
          switchStates(indexOfCell, emptyCellIndex);
          // змінили індекс пустої клітки
          emptyCellIndex = indexOfCell;
+      }
+
+      if (isGameWin()) {
+         closeGame();
+         updateGameWinInfo();
+         openGameWinModal();
       }
    }
 })
@@ -229,8 +269,15 @@ gameRestart.addEventListener('click', () => {
 })
 
 // відслідковуємо клік по кнопці переходу до меню
-gameMenu.addEventListener("click", () => {
+gameMenu.addEventListener('click', () => {
    closeGame();
    removeCells();
    openGameFieldSize();
+});
+
+gameWinCloseButton.addEventListener('click', () => {
+   closeGameWinModal();
+   resetCountMoves();
+   gameShuffle();
+   openGame();
 });
