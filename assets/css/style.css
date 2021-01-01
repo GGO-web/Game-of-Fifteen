@@ -656,12 +656,6 @@ img {
 }
 
 .game-win-modal-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -678,7 +672,7 @@ img {
 .game-win-modal {
   position: relative;
   border: 2px solid var(--color-black);
-  padding: 40px 60px;
+  padding: 40px 50px;
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }

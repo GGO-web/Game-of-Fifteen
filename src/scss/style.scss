@@ -127,10 +127,6 @@
 }
 
 .game-win-modal-wrapper {
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   transform: translate(-50%, -50%);
    display: flex;
    align-items: center;
    justify-content: center;
@@ -142,7 +138,7 @@
 .game-win-modal {
    position: relative;
    border: 2px solid var(--color-black);
-   padding: 40px 60px;
+   padding: 40px 50px;
    border-bottom-left-radius: 15px;
    border-bottom-right-radius: 15px;
    &__title {
