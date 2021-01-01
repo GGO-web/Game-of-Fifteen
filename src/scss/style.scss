@@ -49,8 +49,8 @@
       background: gray;
       border: 1px solid ghostwhite;
       border-radius: 5px;
-      transition: background 0.2s ease-in-out;
       user-select: none;
+      transition: background 0.1s ease-in-out;
       &:hover {
          background: rgba(gray, 0.9);
       }
@@ -149,8 +149,11 @@
       font-size: 24px;
       margin-bottom: 15px;
    }
-   &__info {
-      color: #2a9d8f;
+   &__info-item:first-child {
+      color: #6d597a;
+   }
+   &__info-item:last-child {
+      color: #ee6c4d;
    }
    &__info-item:not(:last-child) {
       margin-bottom: 10px;
@@ -160,6 +163,15 @@
       top: 10px;
       right: 10px;
    }
+}
+
+.game-info__moves {
+   margin-bottom: 15px;
+   color: #6d597a;
+}
+
+.game-info__times {
+   color: #ee6c4d;
 }
 
 @media (max-width: 375px) {

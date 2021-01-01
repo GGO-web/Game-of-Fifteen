@@ -478,6 +478,10 @@ body {
   color: var(--color-black);
 }
 
+img {
+  vertical-align: sub;
+}
+
 .hidden {
   display: none !important;
 }
@@ -544,13 +548,13 @@ body {
   background: gray;
   border: 1px solid ghostwhite;
   border-radius: 5px;
-  -webkit-transition: background 0.2s ease-in-out;
-  -o-transition: background 0.2s ease-in-out;
-  transition: background 0.2s ease-in-out;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  -webkit-transition: background 0.1s ease-in-out;
+  -o-transition: background 0.1s ease-in-out;
+  transition: background 0.1s ease-in-out;
 }
 
 .game-field__cell:hover {
@@ -684,8 +688,12 @@ body {
   margin-bottom: 15px;
 }
 
-.game-win-modal__info {
-  color: #2a9d8f;
+.game-win-modal__info-item:first-child {
+  color: #6d597a;
+}
+
+.game-win-modal__info-item:last-child {
+  color: #ee6c4d;
 }
 
 .game-win-modal__info-item:not(:last-child) {
@@ -696,6 +704,15 @@ body {
   position: absolute;
   top: 10px;
   right: 10px;
+}
+
+.game-info__moves {
+  margin-bottom: 15px;
+  color: #6d597a;
+}
+
+.game-info__times {
+  color: #ee6c4d;
 }
 
 @media (max-width: 375px) {

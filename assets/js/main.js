@@ -8,6 +8,8 @@ const gameFieldSizeWrapper = document.querySelector(".game-field-size-wrapper");
 const gameFieldSizeButtons = document.querySelectorAll(".game-field-size__button");
 // отримуємо кількість ходів
 const countMoves = document.getElementById("count-moves");
+// отримуємо кількість ходів
+const countTimes = document.getElementById("count-times");
 // отримуємо кнопку перезапуску гри
 const gameRestart = document.getElementById("game-restart");
 // отримуємо кнопку повернення до меню вибору поля
@@ -25,6 +27,30 @@ let countRows = +Math.sqrt(countCells);
 let emptyCellIndex = +countCells;
 // кількість ходів
 let moves = 0;
+// змінна, що визначає чи це перший хід гри
+let isFirstClick = true;
+// таймер гри
+let timer;
+// Час, що пройшов при запуску таймера
+let timeLeft = 0; 
+
+// нормує задане число добавляючи нулі в кінець якщо це потрібно: 1.2 => 1,20, 5 => 5,00
+const normalizeTimeLeft = (valueStr) => {
+   if (!valueStr.includes(".")) {
+      valueStr += ",00";
+      return valueStr;
+   }
+
+   let commaIndex = valueStr.indexOf(".");
+   valueStr = valueStr.substring(0, commaIndex) + "," + valueStr.substring(commaIndex + 1);
+   const countCharAfterComma = valueStr.length - commaIndex - 1;
+
+   for (let i = 0; i < 2 - countCharAfterComma; ++i) {
+      valueStr += "0";
+   }
+
+   return valueStr;
+};
 
 // створення ігрового поля
 const createCells = () => {
@@ -175,7 +201,7 @@ const getIndexOfCellByDirection = (direction) => {
 
 // перемішування ігрового поля
 const gameShuffle = () => {
-   for (let i = 0; i <= 47; ++i) {
+   for (let i = 0; i <= 2021; ++i) {
       const direction = getRandomNumberFrom1to4();
       const indexOfCell = getIndexOfCellByDirection(direction);
       if (isAdjacentCell(indexOfCell)) {
@@ -195,9 +221,12 @@ const closeGameWinModal = () => {
    gameWinModalWrapper.classList.add("hidden");
 };
 
+// оновлення рекорду гри в екрані перемоги 
 const updateGameWinInfo = () => {
    const gameWinScore = document.querySelector(".game-win-modal__score");
+   const gameWinTime = document.querySelector(".game-win-modal__time");
    gameWinScore.innerHTML = `${moves}`;
+   gameWinTime.innerHTML  = `${normalizeTimeLeft(String(timeLeft))}`;
 }
 
 // перевірка на виграш
@@ -215,6 +244,32 @@ const isGameWin = () => {
    return true;
 }
 
+// оновлення часу гри на головному екрані 
+const updateTimeOnGame = () => {
+   countTimes.innerHTML = `${normalizeTimeLeft(String(timeLeft))}s`;
+}
+
+// обнулення часу гри на головному екрані 
+const resetTimeOnGame = () => {
+   countTimes.innerHTML = `0,00s`;
+   timeLeft = 0;
+}
+
+// запуск таймера
+const startTimer = () => {
+   const step = 10;
+   timer = setInterval(() => {
+      timeLeft = +(timeLeft + step * 0.001).toFixed(2);
+      //console.log(normalizeTimeLeft(String(timeLeft)));
+      updateTimeOnGame();
+   }, step);
+}
+
+// очищення таймера
+const stopTimer = () => {
+   clearInterval(timer);
+}
+
 // відслідковуємо клік по ігровому полю
 gameField.addEventListener('click', function(event) {
    // клітка, по якій відбувся клік
@@ -229,6 +284,12 @@ gameField.addEventListener('click', function(event) {
 
       // чи клітка є суміжною з пустою?
       if (isAdjacentCell(indexOfCell)) {
+         // При першому кліку по клітинці запускаємо таймер
+         if (isFirstClick) {
+            startTimer();
+            isFirstClick = false;
+         }
+
          // збільшили кількість ходів
          updateCountMoves();
          // поміняли стани кліток
@@ -238,6 +299,7 @@ gameField.addEventListener('click', function(event) {
       }
 
       if (isGameWin()) {
+         stopTimer();
          closeGame();
          updateGameWinInfo();
          openGameWinModal();
@@ -258,6 +320,7 @@ gameFieldSizeButtons.forEach((item) => {
 
       createCells();
       resetCountMoves();
+      resetTimeOnGame();
       gameShuffle();
    });
 });
@@ -265,19 +328,29 @@ gameFieldSizeButtons.forEach((item) => {
 // відслідковуємо клік по кнопці перезапуску гри
 gameRestart.addEventListener('click', () => {
    resetCountMoves();
+   resetTimeOnGame();
+   stopTimer();
    gameShuffle();
 })
 
 // відслідковуємо клік по кнопці переходу до меню
 gameMenu.addEventListener('click', () => {
+   resetCountMoves();
+   resetTimeOnGame();
+   stopTimer();
+   isFirstClick = true;
+
    closeGame();
    removeCells();
    openGameFieldSize();
 });
 
+// закриття вікна перемоги і запуск нової гри.
 gameWinCloseButton.addEventListener('click', () => {
    closeGameWinModal();
    resetCountMoves();
+   resetTimeOnGame();
    gameShuffle();
    openGame();
+   isFirstClick = true;
 });

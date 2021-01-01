@@ -14,19 +14,16 @@
          <h2 class="game-win-modal__title">Congratulation</h2>
          <div class="game-win-modal__info">
             <p class="game-win-modal__info-item">
-               Your score: 
-               <span class="game-win-modal__score">15</span>
+               <img style="width: 25px; height: 25px" src="img/star.svg" alt="click">
+               Your score: <span class="game-win-modal__score">15</span>
             </p>
-            <!-- <p class="game-win-modal__info-item">
-               Your time:
-               <span class="game-win-modal__time">0</span>s
-            </p> -->
+            <p class="game-win-modal__info-item">
+               <img style="width: 25px; height: 25px" src="img/back-in-time.svg" alt="time">
+               Your time: <span class="game-win-modal__time">0</span>s
+            </p>
          </div>
          <button class="game-win-modal__close-button">
-            <svg height="15pt" viewBox="0 0 329.26933 329" width="15pt" xmlns="http://www.w3.org/2000/svg">
-               <path
-                  d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0" />
-            </svg>
+            <img style="width: 24px; height: 24px" src="img/close.svg" alt="close">
          </button>
       </div>
    </div>
@@ -69,8 +66,13 @@
             <li class="game-field__cell" data-index="9"></li> -->
          </ul>
          <div class="game-info">
-            <h3 class="game-info__text">
+            <h3 class="game-info__moves">
+               <img style="width: 25px; height: 25px" src="img/tap.svg" alt="click">
                Count moves: <span id="count-moves">-</span>
+            </h3>
+            <h3 class="game-info__times">
+               <img style="width: 25px; height: 25px" src="img/back-in-time.svg" alt="time">
+               Times left:  <span id="count-times">0,00s</span>
             </h3>
          </div>
       </main>
