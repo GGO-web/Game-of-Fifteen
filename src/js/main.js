@@ -268,6 +268,7 @@ const startTimer = () => {
 // очищення таймера
 const stopTimer = () => {
    clearInterval(timer);
+   isFirstClick = true;
 }
 
 // відслідковуємо клік по ігровому полю
@@ -338,7 +339,6 @@ gameMenu.addEventListener('click', () => {
    resetCountMoves();
    resetTimeOnGame();
    stopTimer();
-   isFirstClick = true;
 
    closeGame();
    removeCells();
@@ -350,7 +350,7 @@ gameWinCloseButton.addEventListener('click', () => {
    closeGameWinModal();
    resetCountMoves();
    resetTimeOnGame();
+   stopTimer();
    gameShuffle();
    openGame();
-   isFirstClick = true;
 });
