@@ -555,10 +555,7 @@ img {
   -webkit-transition: background 0.1s ease-in-out;
   -o-transition: background 0.1s ease-in-out;
   transition: background 0.1s ease-in-out;
-}
-
-.game-field__cell:hover {
-  background: rgba(128, 128, 128, 0.9);
+  -webkit-tap-highlight-color: transparent;
 }
 
 .game-field-size {
@@ -707,6 +704,12 @@ img {
 
 .game-info__times {
   color: #ee6c4d;
+}
+
+@media (min-width: 1025px) {
+  .game-field__cell:hover {
+    background: rgba(128, 128, 128, 0.9);
+  }
 }
 
 @media (max-width: 375px) {

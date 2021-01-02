@@ -51,9 +51,7 @@
       border-radius: 5px;
       user-select: none;
       transition: background 0.1s ease-in-out;
-      &:hover {
-         background: rgba(gray, 0.9);
-      }
+      -webkit-tap-highlight-color: transparent;
    }
 }
 
@@ -168,6 +166,12 @@
 
 .game-info__times {
    color: #ee6c4d;
+}
+
+@media (min-width: 1025px) {
+   .game-field__cell:hover {
+      background: rgba(gray, 0.9);
+   }
 }
 
 @media (max-width: 375px) {
