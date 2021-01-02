@@ -37,7 +37,7 @@ let timeLeft = 0;
 // нормує задане число добавляючи нулі в кінець якщо це потрібно: 1.2 => 1,20, 5 => 5,00
 const normalizeTimeLeft = (valueStr) => {
    if (!valueStr.includes(".")) {
-      valueStr += ",00";
+      valueStr += ",0";
       return valueStr;
    }
 
@@ -45,7 +45,7 @@ const normalizeTimeLeft = (valueStr) => {
    valueStr = valueStr.substring(0, commaIndex) + "," + valueStr.substring(commaIndex + 1);
    const countCharAfterComma = valueStr.length - commaIndex - 1;
 
-   for (let i = 0; i < 2 - countCharAfterComma; ++i) {
+   for (let i = 0; i < 1 - countCharAfterComma; ++i) {
       valueStr += "0";
    }
 
@@ -251,15 +251,15 @@ const updateTimeOnGame = () => {
 
 // обнулення часу гри на головному екрані 
 const resetTimeOnGame = () => {
-   countTimes.innerHTML = `0,00s`;
+   countTimes.innerHTML = `0,0s`;
    timeLeft = 0;
 }
 
 // запуск таймера
 const startTimer = () => {
-   const step = 10;
+   const step = 100;
    timer = setInterval(() => {
-      timeLeft = +(timeLeft + step * 0.001).toFixed(2);
+      timeLeft = +(timeLeft + step * 0.001).toFixed(1);
       //console.log(normalizeTimeLeft(String(timeLeft)));
       updateTimeOnGame();
    }, step);
