@@ -20,7 +20,7 @@ const gameWinModalWrapper = document.querySelector(".game-win-modal-wrapper");
 const gameWinCloseButton = document.querySelector(".game-win-modal__close-button");
 
 // кількість клітинок в ігровому полі
-let countCells = gameField.dataset.countcells;
+let countCells = +gameField.dataset.countcells;
 // кількість рядків і стовпців поля
 let countRows = +Math.sqrt(countCells);
 // індекс пустої клітки
@@ -32,7 +32,9 @@ let isFirstClick = true;
 // таймер гри
 let timer;
 // Час, що пройшов при запуску таймера
-let timeLeft = 0; 
+let timeLeft = 0;
+// Час анімації клітинок при виграші
+const animationTimeStart = 350, animationTimeEnd = 250;
 
 // нормує задане число добавляючи нулі в кінець якщо це потрібно: 1.2 => 1,20, 5 => 5,00
 const normalizeTimeLeft = (valueStr) => {
@@ -51,6 +53,7 @@ const normalizeTimeLeft = (valueStr) => {
 
    return valueStr;
 };
+
 
 // створення ігрового поля
 const createCells = () => {
@@ -122,6 +125,7 @@ const isAdjacentCell = (indexOfCell) => {
    return false;
 } 
 
+
 // закриття вікна вибору розміру поля
 const closeGameFieldSize = () => {
    gameFieldSizeWrapper.classList.add("hidden");
@@ -143,6 +147,16 @@ const closeGame = () => {
    const game = document.querySelector(".game-wrapper");
    game.classList.add("hidden");
 }
+
+// відкриття вікна перемоги
+const openGameWinModal = () => {
+   gameWinModalWrapper.classList.remove("hidden");
+}
+
+// закриття вікна перемоги
+const closeGameWinModal = () => {
+   gameWinModalWrapper.classList.add("hidden");
+};
 
 // зміна розміру поля
 const changeFieldSize = (size) => {
@@ -211,16 +225,6 @@ const gameShuffle = () => {
    }
 }
 
-// відкриття вікна перемоги
-const openGameWinModal = () => {
-   gameWinModalWrapper.classList.remove("hidden");
-}
-
-// закриття вікна перемоги
-const closeGameWinModal = () => {
-   gameWinModalWrapper.classList.add("hidden");
-};
-
 // оновлення рекорду гри в екрані перемоги 
 const updateGameWinInfo = () => {
    const gameWinScore = document.querySelector(".game-win-modal__score");
@@ -243,6 +247,56 @@ const isGameWin = () => {
 
    return true;
 }
+
+
+// блокує нажимання на клітинки
+const blockClicks = () => {
+   const gameFieldCells = document.querySelectorAll('.game-field__cell');
+   gameFieldCells.forEach((cell) => {
+      cell.style.pointerEvents = "none";
+   });
+}
+
+// розблоковує нажимання на клітинки
+const unBlockClicks = () => {
+   const gameFieldCells = document.querySelectorAll(".game-field__cell");
+   gameFieldCells.forEach((cell) => {
+      cell.style.pointerEvents = "all";
+   });
+};
+
+// анімація клітинок після перемоги
+const animationAfterWin = () => {
+   // отримую матрицю елементи якого йдуть змійкою 123456789 => 123654789
+   const arr = Array.from({ length: countCells }, (_, i) => i + 1);
+   for (let i = 2; i <= countRows; i += 2) {
+      let left = (i - 1) * countRows, right = i * countRows - 1;
+      while (left < right) {
+         const tmp = arr[left];
+         arr[left] = arr[right];
+         arr[right] = tmp;
+         left++;
+         right--;
+      }
+   }
+
+   // анімація клітинки при виграші
+   blockClicks();
+   let time = animationTimeStart;
+   for (let i = 0; i < countCells; ++i) {
+      const currCell = document.querySelector(`.game-field__cell:nth-child(${arr[i]})`);
+      currCell.style.transition = "background 0.3s ease-in-out";
+      setTimeout(() => {
+         currCell.style.background = "rgba(128, 128, 128, 0.9)";
+      }, time);
+      setTimeout(() => {
+         currCell.style.background = "gray";
+      }, time + animationTimeEnd);
+      time += animationTimeStart;
+   }
+   
+}
+
 
 // оновлення часу гри на головному екрані 
 const updateTimeOnGame = () => {
@@ -270,6 +324,7 @@ const stopTimer = () => {
    clearInterval(timer);
    isFirstClick = true;
 }
+
 
 // відслідковуємо клік по ігровому полю
 gameField.addEventListener('click', function(event) {
@@ -300,13 +355,20 @@ gameField.addEventListener('click', function(event) {
       }
 
       if (isGameWin()) {
+         animationAfterWin();
+
          stopTimer();
-         closeGame();
-         updateGameWinInfo();
-         openGameWinModal();
+         const timeToOpenWinModal = animationTimeStart * countCells + animationTimeEnd;
+         setTimeout(() => {
+            closeGame();
+            unBlockClicks();
+            updateGameWinInfo();
+            openGameWinModal();
+         }, timeToOpenWinModal);
       }
    }
 })
+
 
 // відслідковуємо клік по кнопці вибору розміру поля
 gameFieldSizeButtons.forEach((item) => {

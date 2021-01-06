@@ -560,6 +560,7 @@ img {
 
 .game-field-size {
   padding: 20px;
+  margin-top: 15px;
   border: 3px solid var(--color-black);
   border-top-left-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -572,10 +573,15 @@ img {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   height: 100vh;
+  min-height: 360px;
 }
 
 .game-field-size__title {
@@ -708,7 +714,7 @@ img {
 
 @media (min-width: 1025px) {
   .game-field__cell:hover {
-    background: rgba(128, 128, 128, 0.9);
+    background: rgba(128, 128, 128, 0.9) !important;
   }
 }
 
