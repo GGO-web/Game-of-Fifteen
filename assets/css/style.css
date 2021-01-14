@@ -596,17 +596,30 @@ img {
 }
 
 .game-field-size__button {
+  position: relative;
   width: 100%;
   padding: 5px 10px;
   border: 2px dashed var(--color-black);
   border-radius: 5px;
-  -webkit-transition: background 0.2s ease-in;
-  -o-transition: background 0.2s ease-in;
-  transition: background 0.2s ease-in;
 }
 
-.game-field-size__button:hover {
-  background: rgba(128, 128, 128, 0.5);
+.game-field-size__button:before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border-radius: 5px;
+  border: 2px solid var(--color-black);
+  opacity: 0;
+  -webkit-transition: opacity 0.15s ease-in;
+  -o-transition: opacity 0.15s ease-in;
+  transition: opacity 0.15s ease-in;
+}
+
+.game-field-size__button:hover:before {
+  opacity: 1;
 }
 
 .game-navigation {
