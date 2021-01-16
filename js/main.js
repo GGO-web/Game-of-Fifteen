@@ -325,9 +325,8 @@ const stopTimer = () => {
    isFirstClick = true;
 }
 
-
-// відслідковуємо клік по ігровому полю
-gameField.addEventListener('click', function(event) {
+// головна логіка гри
+function gameProcess(event) {
    // клітка, по якій відбувся клік
    const currCell = event.target;
    // значення поточної клітки
@@ -367,8 +366,20 @@ gameField.addEventListener('click', function(event) {
          }, timeToOpenWinModal);
       }
    }
-})
+}
 
+// відслідковуємо клік по ігровому полю
+gameField.addEventListener('click', gameProcess);
+
+// відслідковуємо завершення свайпу по ігровому полю
+gameField.addEventListener("touchend", function(event) {
+   const location = event.changedTouches[0];
+   // отримую елемент який є в позиції після відпускання пальця
+   const elementAfter = document.elementFromPoint(location.clientX, location.clientY);
+   // якщо задана клітинка над якою ми відпустили палець є пустою
+   if (elementAfter.innerHTML == "") 
+      gameProcess(event);
+});
 
 // відслідковуємо клік по кнопці вибору розміру поля
 gameFieldSizeButtons.forEach((item) => {
@@ -394,7 +405,7 @@ gameRestart.addEventListener('click', () => {
    resetTimeOnGame();
    stopTimer();
    gameShuffle();
-})
+});
 
 // відслідковуємо клік по кнопці переходу до меню
 gameMenu.addEventListener('click', () => {
