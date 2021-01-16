@@ -13,14 +13,14 @@ let path = {
       html: [sourceFolder + "/*.html", "!" + sourceFolder + "/_*.html"],
       css: sourceFolder + "/scss/*.+(scss|css)",
       js: sourceFolder + "/js/*.+(js|min.js)",
-      img: sourceFolder + "/img/**/*.+(jpg|png|svg|gif|ico|webp|jpeg)",
+      img: sourceFolder + "/img/!sprite|**/*.+(jpg|png|svg|gif|ico|webp|jpeg)",
       fonts: sourceFolder + "/fonts/*.+(ttf|woff|woff2|otf)",
    },
    watch: {
       html: sourceFolder + "/**/*.html",
       css: sourceFolder + "/scss/**/*.scss",
       js: sourceFolder + "/js/**/*.+(js|min.js)",
-      img: sourceFolder + "/img/**/*.+(jpg|png|svg|gif|ico|webp|jpeg)",
+      img: sourceFolder + "/img/!sprite|**/*.+(jpg|png|svg|gif|ico|webp|jpeg)",
    },
    clean: "./" + projectFolder + "/",
 };
@@ -39,7 +39,8 @@ let { src, dest } = require("gulp"),
    imagemin = require("gulp-imagemin"),
    webp = require("gulp-webp"),
    webphtml = require("gulp-webp-html"),
-   babel = require('gulp-babel');
+   babel = require("gulp-babel"),
+   svgSprite = require("gulp-svg-sprite");
 
 function browser_sync() {
    browserSync.init({
@@ -110,6 +111,15 @@ function images() {
          webp({
             quality: 70,
          })
+      )
+      .pipe(src(`${sourceFolder}/img/sprite/*.svg`))
+      .pipe(svgSprite({
+                mode: {
+                    stack: {
+                        sprite: "../sprite.svg"  //sprite file name
+                    }
+                },
+            })
       )
       .pipe(dest(path.build.img))
       .pipe(src(path.src.img))
