@@ -490,17 +490,18 @@ img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   height: 100vh;
+  height: -webkit-fill-available;
   max-width: calc(1880px + 20px * 2);
   min-height: 520px;
   margin: 0 auto;
@@ -510,8 +511,8 @@ img {
 .game-title {
   font-size: 43px;
   font-weight: bold;
-  letter-spacing: 0.5px;
   margin-bottom: 15px;
+  letter-spacing: 0.5px;
 }
 
 .game {
@@ -527,8 +528,8 @@ img {
       flex-wrap: wrap;
   width: 280px;
   height: 280px;
-  border-radius: 20px;
   margin: 0 auto 30px;
+  border-radius: 20px;
 }
 
 .game-field__cell {
@@ -548,19 +549,18 @@ img {
   background: gray;
   border: 1px solid ghostwhite;
   border-radius: 5px;
+  -webkit-transition: background 0.1s ease-in-out;
+  -o-transition: background 0.1s ease-in-out;
+  transition: background 0.1s ease-in-out;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  -webkit-transition: background 0.1s ease-in-out;
-  -o-transition: background 0.1s ease-in-out;
-  transition: background 0.1s ease-in-out;
   -webkit-tap-highlight-color: transparent;
 }
 
 .game-field-size {
   padding: 20px;
-  margin-top: 15px;
   border: 3px solid var(--color-black);
   border-top-left-radius: 30px;
   border-bottom-right-radius: 30px;
@@ -570,25 +570,26 @@ img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   height: 100vh;
-  min-height: 360px;
+  height: -webkit-fill-available;
+  min-height: 320px;
 }
 
 .game-field-size__title {
   font-size: 26px;
-  letter-spacing: 0.5px;
   line-height: 1.2;
   margin-bottom: 20px;
+  letter-spacing: 0.5px;
 }
 
 .game-field-size__list-item {
@@ -605,14 +606,14 @@ img {
 
 .game-field-size__button:before {
   content: '';
+  opacity: 0;
   position: absolute;
   top: -2px;
   left: -2px;
   width: calc(100% + 4px);
   height: calc(100% + 4px);
-  border-radius: 5px;
   border: 2px solid var(--color-black);
-  opacity: 0;
+  border-radius: 5px;
   -webkit-transition: opacity 0.15s ease-in;
   -o-transition: opacity 0.15s ease-in;
   transition: opacity 0.15s ease-in;
@@ -635,14 +636,14 @@ img {
 }
 
 .game-navigation__button {
-  padding: 5px 10px;
-  text-align: center;
   width: 100%;
   max-width: 150px;
-  border: 1px solid var(--color-black);
-  text-transform: uppercase;
-  margin: 0 10px;
   color: var(--color-white);
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 10px;
+  padding: 5px 10px;
+  border: 1px solid var(--color-black);
 }
 
 .game-navigation__button-restart {
@@ -675,20 +676,21 @@ img {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 100vh;
+  height: -webkit-fill-available;
   min-height: 320px;
 }
 
 .game-win-modal {
   position: relative;
-  border: 2px solid var(--color-black);
   padding: 40px 50px;
+  border: 2px solid var(--color-black);
   border-bottom-left-radius: 15px;
   border-bottom-right-radius: 15px;
 }
@@ -717,8 +719,8 @@ img {
 }
 
 .game-info__moves {
-  margin-bottom: 15px;
   color: #6d597a;
+  margin-bottom: 15px;
 }
 
 .game-info__times {
