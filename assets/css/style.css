@@ -474,6 +474,7 @@ h6 {
 
 body {
   font-family: "Lato", sans-serif;
+  overscroll-behavior: none;
   font-size: 20px;
   color: var(--color-black);
 }
